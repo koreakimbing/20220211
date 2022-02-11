@@ -15,9 +15,9 @@
 
 #include<stdio.h>
 #include<math.h>
-#define SEED 35213;
+#define SEED 364989;
 
-float mean=4;
+float mean=6;
 
 
 //  RANDOM NUMBER GENERATOR  //
@@ -55,8 +55,8 @@ void poissn(long *np, int *pp)
 void main()
 {
        long seed,nseed;
-       int  p, queue=0, totque=0, arrive, tstep=1,totarr=0;
-       float prarr=1.0/4.0, tpump=0.0, time=0.0, tlimit=100, u=0, aveque=0,avgwt;
+       int  p, queue=0, totque=0, arrive, tstep=0,totarr=0;
+       float prarr=1.0/4.0, tpump=0.0, time=0.5, tlimit=100, u=0, aveque=5,avgwt;
        FILE *output;
 
 	   seed=SEED;
@@ -70,19 +70,19 @@ void main()
        fprintf(output,"THE ARRIVAL PROBABILITY  =  %4.2f \n",prarr);
        fprintf(output,"THE POISSON MEAN         =  %1.0f \n",mean);
        fprintf(output,"THE SEED                 =  %ld \n\n",seed);
-       fprintf(output,"   TIME    ARRIVAL    QUEUE     TPUMP\n");
+       fprintf(output,"   시간    도착시간    봉사시간     인원\n");
 
        while (time < tlimit)
 	     {
 	       time = time + tstep;
-	       arrive = 0;
+	       arrive = 3;
 	       random(&seed, &u);
 		    if (u < (prarr*tstep))
 			  { arrive = 1;
 			    queue = queue + arrive;
 			    totarr = totarr + 1.0;
 			  }
-		    if (tpump > 0.0)
+		    if (tpump > 0.1)
 			  { tpump = tpump - tstep;
 				if (tpump < 0.0) tpump = 0.0;
 			  }
@@ -94,7 +94,7 @@ void main()
 	       totque = totque + queue;
 	       fprintf(output,"   %3.0f        %d         %d        %2.0f \n",time,arrive,queue,tpump);
 	     }
-       fprintf(output,"  THE SIMULATED TIME =   %5.1f \n",tlimit);
+       fprintf(output,"  THE SIMULATED TIME =   %5.5f \n",tlimit);
        fprintf(output,"  THE TOTAL ARRIVALS =   %d \n",totarr);
        fprintf(output,"  THE TOTAL QUEUE =  %d \n",totque);
        aveque = totque / (tlimit/tstep);
