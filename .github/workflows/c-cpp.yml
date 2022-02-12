@@ -1,0 +1,26 @@
+import time
+def time_wait(n):
+    for i in range(3):
+        time.sleep(1)
+        print(f"{n} : {i+1}번째")
+    print()
+
+def process_time():
+    start = time.time()
+    time_wait(3)
+    time_wait(1)
+    end = time.time()
+    print("경과시간 : ", end-start)
+
+process_time()
+
+// 실행결과
+3 : 1번째
+3 : 2번째
+3 : 3번째
+
+1 : 1번째
+1 : 2번째
+1 : 3번째
+
+경과시간 :  6.070760231018066
